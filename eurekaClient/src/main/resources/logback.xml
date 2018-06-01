@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+    <property name="LOG_PATH" value="logs" />
+    <property name="LOG_ARCHIVE" value="${LOG_PATH}/archive" />
+    <timestamp key="timestamp-by-second" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <!--&lt;!&ndash; this is kafka Appender &ndash;&gt;-->
+    <!--<appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">-->
+    <!--&lt;!&ndash; This is the default encoder that encodes every log message to an utf8-encoded string  &ndash;&gt;-->
+    <!--<encoder class="com.github.danielwegener.logback.kafka.encoding.LayoutKafkaMessageEncoder" >-->
+    <!--<layout class="net.logstash.logback.layout.LogstashLayout"/>-->
+    <!--</encoder>-->
+    <!--<topic>test-log</topic>-->
+    <!--<keyingStrategy class="com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy" />-->
+    <!--<deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />-->
+
+    <!--&lt;!&ndash; each <producerConfig> translates to regular kafka-client config (format: key=value) &ndash;&gt;-->
+    <!--&lt;!&ndash; producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs &ndash;&gt;-->
+    <!--&lt;!&ndash; bootstrap.servers is the only mandatory producerConfig &ndash;&gt;-->
+    <!--<producerConfig>bootstrap.servers=172.31.5.41:9092,172.31.5.42:9092,172.31.5.43:9092</producerConfig>-->
+
+
+    <!--</appender>-->
+
+    <!--&lt;!&ndash; 异步输出，当然异步日志的风险是当程序crash时，会丢失所有未输出的日志，对查看程序crash原因会造成一定的影响 &ndash;&gt;-->
+    <!--<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender" >-->
+    <!--&lt;!&ndash; 不丢失日志. &ndash;&gt;-->
+    <!--<discardingThreshold>0</discardingThreshold>-->
+    <!--&lt;!&ndash; 异步队列深度，该值会影响性能 &ndash;&gt;-->
+    <!--<queueSize>256</queueSize>-->
+    <!--<appender-ref ref="kafkaAppender" />-->
+    <!--</appender>-->
+
+
+    <root level="DEBUG">
+        <!-- 开发环境配置为 STDOUT -->
+        <!-- 测试&生产环境配置为 async -->
+        <appender-ref ref="STDOUT"/>
+        <!--<appender-ref ref="ASYNC" />-->
+    </root>
+</configuration>

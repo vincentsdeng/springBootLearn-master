@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ribbon-consumer
+server:
+  port: 3333
+
+simple:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:2000,localhost:2002
+    ServerListRefreshInterval: 15000

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: feign-consumer
+server:
+  port: 3333
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:${eureka.port:1111}/eureka/
+
+feign:
+  histrix:
+    enabled: false
+
+hystrix:
+  command:
+    choose:
+      default:
+        execution:
+          timeout:
+            enabled: false

@@ -6,7 +6,7 @@ public enum CityStatus {
 
     private String content;
     private Integer code;
-
+   //构造调用设定
     CityStatus(Integer index,String content){
         this.code = index;
         this.content = content;
@@ -25,6 +25,9 @@ public enum CityStatus {
     }
 
     public Integer getCode() {
+        return code;
+    }
+    public  Integer setCode(){
         return code;
     }
 
